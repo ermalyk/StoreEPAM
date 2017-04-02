@@ -1,0 +1,53 @@
+
+nav {
+  height: 50px;
+}
+
+.home-page {
+  width: 350px;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+
+  width: 300px;
+  height: 30px;
+
+  button {
+    height: 15px;
+    width: 15px;
+    margin: 0px 5px;
+  }
+
+  label {
+    margin-left: 5px;
+  }
+
+  .expandCatalog {
+    background: url('../images/expand-button.png') no-repeat;
+    background-size: 100%;
+  }
+
+  .editCatalog {
+    background: url('../images/edit-button.png') no-repeat;
+    background-size: 100%;
+  }
+
+  div {
+    float: right;
+    .deleteCatalog {
+      background: url('../images/remove-icon.png') no-repeat;
+      background-size: 100%;
+    }
+
+    .addCatalog {
+      background: url('../images/add-button.png') no-repeat;
+      background-size: 100%;
+    }
+  }
+}

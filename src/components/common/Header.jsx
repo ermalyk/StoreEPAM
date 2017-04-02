@@ -10,6 +10,8 @@ const Header = () => {
       {" | "}
       <Link to="/about" activeClassName="active">About</Link>
     </nav>
+
+
   );
 };
 
