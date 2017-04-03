@@ -12,49 +12,53 @@ nav {
 
 .all-categories {
   display: flex;
-  justify-content: flex-end;
   flex-direction: column;
+  justify-content: center;
 
-
-  .category {
+  .category-wrap {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border: 1px solid black;
 
-    // width: 300px;
-    height: 30px;
 
-    button {
-      height: 15px;
-      width: 15px;
-      margin: 0px 5px;
-    }
+    .category {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid black;
+      // width: 300px;
+      height: 30px;
 
-    label {
-      margin-left: 5px;
-    }
+      button {
+        height: 15px;
+        width: 15px;
+        margin: 0px 5px;
+      }
 
-    .expandCatalog {
-      background: url('../images/expand-button.png') no-repeat;
-      background-size: 100%;
-    }
+      label {
+        margin-left: 5px;
+      }
 
-    .editCatalog {
-      background: url('../images/edit-button.png') no-repeat;
-      background-size: 100%;
-    }
-
-    div {
-      float: right;
-      .deleteCatalog {
-        background: url('../images/remove-icon.png') no-repeat;
+      .expandCatalog {
+        background: url('../images/expand-button.png') no-repeat;
         background-size: 100%;
       }
 
-      .addCatalog {
-        background: url('../images/add-button.png') no-repeat;
+      .editCatalog {
+        background: url('../images/edit-button.png') no-repeat;
         background-size: 100%;
+      }
+
+      div {
+        float: right;
+        .deleteCatalog {
+          background: url('../images/remove-icon.png') no-repeat;
+          background-size: 100%;
+        }
+
+        .addCatalog {
+          background: url('../images/add-button.png') no-repeat;
+          background-size: 100%;
+        }
       }
     }
   }

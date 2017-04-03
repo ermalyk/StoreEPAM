@@ -11,19 +11,21 @@ class Category extends React.Component {
     console.log(level, ' ', width);
 
     return (
-      <div className="all-categories" style={{width: '100%'}}>
-        <div className="category" style={{width}}>
-          <div>
-            <button className="expandCatalog"></button>
-            <label>{this.props.title}</label>
-            <button className="editCatalog"></button>
-          </div>
-          <div>
-            <button className="deleteCatalog"></button>
-            <button className="addCatalog"></button>
+      <div className="all-categories" >
+        <div className="category-wrap">
+          <div></div>
+          <div className="category" style={{width}}>
+            <div>
+              <button className="expandCatalog"></button>
+              <label>{this.props.title}</label>
+              <button className="editCatalog"></button>
+            </div>
+            <div>
+              <button className="deleteCatalog"></button>
+              <button className="addCatalog"></button>
+            </div>
           </div>
         </div>
-
         <CategoryList className="sub-category-list" level={level + 1} categories={this.props.categories} />
       </div>
     );

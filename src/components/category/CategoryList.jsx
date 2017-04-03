@@ -24,7 +24,7 @@ class CategoryList extends React.Component {
           categories.map(category => {
             const categories = category.categories || [];
             return (
-              <Category key={category.id} level={level} title={category.title} categories={categories}/>
+              <Category key={category.id} level={category.level || level} title={category.title} categories={categories}/>
             );
           })
         }
