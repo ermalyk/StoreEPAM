@@ -3,63 +3,127 @@ nav {
   height: 50px;
 }
 
-.home-page {
-  padding: 5px;
-  width: 50%;
-  height: 500px;
-  overflow-y: scroll;
+progress {
+  width: 100%;
+  margin: 10px 0px;
 }
 
-.all-categories {
+.search {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  width: 100%;
+  justify-content: space-between;
 
-  .category-wrap {
-    display: flex;
-    justify-content: space-between;
+  label {
+    margin: 0px 5px;
+  }
+}
 
+.add-text-fields {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 50px;
 
-    .category {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid black;
-      // width: 300px;
-      height: 30px;
+  button {
+    height: 20px;
+    width: 40px;
+  }
+}
 
-      button {
-        height: 15px;
-        width: 15px;
-        margin: 0px 5px;
-      }
+.home-page {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
 
-      label {
-        margin-left: 5px;
-      }
+  .item-section {
+    padding: 5px;
+    width: 50%;
+    height: 500px;
+    overflow-y: scroll;
 
-      .expandCatalog {
-        background: url('../images/expand-button.png') no-repeat;
-        background-size: 100%;
-      }
+    .to-do-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid black;
+        // width: 300px;
+        height: 40px;
 
-      .editCatalog {
-        background: url('../images/edit-button.png') no-repeat;
-        background-size: 100%;
-      }
-
-      div {
-        float: right;
-        .deleteCatalog {
-          background: url('../images/remove-icon.png') no-repeat;
-          background-size: 100%;
+        button {
+          height: 15px;
+          width: 15px;
+          margin: 0px 5px;
         }
 
-        .addCatalog {
+        label {
+          margin-left: 5px;
+        }
+
+        .addItem {
           background: url('../images/add-button.png') no-repeat;
           background-size: 100%;
         }
       }
+  }
+
+  .categories-section {
+    padding: 5px;
+    width: 50%;
+    height: 500px;
+    overflow-y: scroll;
+  }
+
+  .all-categories {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .category-wrap {
+      display: flex;
+      justify-content: space-between;
+
+
+      .category {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid black;
+        // width: 300px;
+        height: 30px;
+
+        button {
+          height: 15px;
+          width: 15px;
+          margin: 0px 5px;
+        }
+
+        label {
+          margin-left: 5px;
+        }
+
+        .expandCatalog {
+          background: url('../images/expand-button.png') no-repeat;
+          background-size: 100%;
+        }
+
+        .editCatalog {
+          background: url('../images/edit-button.png') no-repeat;
+          background-size: 100%;
+        }
+
+        div {
+          float: right;
+          .deleteCatalog {
+            background: url('../images/remove-icon.png') no-repeat;
+            background-size: 100%;
+          }
+
+          .addCatalog {
+            background: url('../images/add-button.png') no-repeat;
+            background-size: 100%;
+          }
+        }
+      }
     }
   }
+
 }

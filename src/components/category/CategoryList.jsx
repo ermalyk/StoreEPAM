@@ -34,7 +34,7 @@ class CategoryList extends React.Component {
 }
 
 CategoryList.PropTypes = {
-  categories: PropTypes.object.isRequired,
+  categories: PropTypes.object.isRequired
 };
 
 export default CategoryList;
