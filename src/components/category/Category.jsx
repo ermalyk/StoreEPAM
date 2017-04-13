@@ -26,7 +26,14 @@ class Category extends React.Component {
             </div>
           </div>
         </div>
-        <CategoryList className="sub-category-list" level={level + 1} categories={this.props.categories} />
+        {this.props.categories.map(category => (
+          <Category
+            key={category.id}
+            level={level + 1}
+            title={category.title}
+            categories={category.categories || []}
+          />
+        ))}
       </div>
     );
   }
