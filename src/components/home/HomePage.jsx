@@ -2,10 +2,8 @@ import React from 'react';
 import { Link } from 'react-router';
 import CategoryList from '../category/CategoryList.jsx';
 import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
-import { getCategories } from '../../Helpers/getData.js';
-import "./HomePageStyle.less";
 
-const categories1 = [
+const categories = [
   {
     id: 1,
     level: 1,
@@ -42,11 +40,10 @@ const categories1 = [
   }
 ];
 
-const categories = getCategories();
 class HomePage extends React.Component {
     render() {
         return (
-          <div classNmae="home-page">
+          <div>
             <div className="search">
               <div/>
               <div>
