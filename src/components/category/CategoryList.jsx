@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Progress } from 'semantic-ui-react';
+// import { Progress } from 'semantic-ui-react';
 import Category from '../category/Category.jsx';
 
 // const categories = [
@@ -11,6 +11,9 @@ import Category from '../category/Category.jsx';
 //   },
 //   {id: 3, title: 'Category 3'}
 // ];
+ {/*<Progress percent={40} active>
+          Active
+        </Progress>*/}
 
 
 class CategoryList extends React.Component {
@@ -28,9 +31,7 @@ class CategoryList extends React.Component {
             );
           })
         }
-        <Progress percent={40} active>
-          Active
-        </Progress>
+
       </div>
     );
   }

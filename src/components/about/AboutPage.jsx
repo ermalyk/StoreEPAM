@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './aboutPage.less';
+import css from './aboutPage.scss';
 
 class AboutPage extends React.Component {
   render() {

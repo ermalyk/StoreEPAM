@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import '../semantic/dist/semantic.min.css';
+// import '../semantic/dist/semantic.min.css';
 import CategoryList from '../category/CategoryList.jsx';
 import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
-import Helper from '../../utils/helpers/GetCategories'
+import Helper from '../../utils/helpers/GetCategories';
 
 class HomePage extends React.Component {
     constructor(props) {
