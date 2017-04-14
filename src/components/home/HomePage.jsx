@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import CategoryList from '../category/CategoryList.jsx';
 import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
+import { Button, Progress } from 'semantic-ui-react';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -11,7 +12,8 @@ class HomePage extends React.Component {
 
       this.state = {
         data: [],
-        isloading: false
+        isloading: false,
+        percent: 40
       }
     }
 
@@ -26,6 +28,7 @@ class HomePage extends React.Component {
     }
 
     render() {
+      let toggle = () => this.setState({ percent: this.state.percent === 0 ? 100 : 0 });
         return (
           <div>
             <div className="search">
@@ -36,7 +39,11 @@ class HomePage extends React.Component {
                 <input type="text" />
               </div>
             </div>
-            <progress value="20" max="100"></progress>
+
+            <div>{this.state.percent}
+              <Progress percent={this.state.percent} autoSuccess />
+              <Button onClick={toggle}>Toggle Complete</Button>
+            </div>
             <div className="add-text-fields">
               <div>
                 <input type="text" />

@@ -1,25 +1,13 @@
 import React, { PropTypes } from 'react';
-// import { Progress } from 'semantic-ui-react';
 import Category from '../category/Category.jsx';
-
-// const categories = [
-//   {id: 1, title: 'Category 1'},
-//   {
-//     id: 2,
-//     title: 'Category 2',
-//     categories: [{title: 'Category 2 1'}, {title: 'Category 2 2'}, {title: 'Category 2 3'}]
-//   },
-//   {id: 3, title: 'Category 3'}
-// ];
- {/*<Progress percent={40} active>
-          Active
-        </Progress>*/}
-
+import { Item } from 'semantic-ui-react';
 
 class CategoryList extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
-
     const {categories, level} = this.props;
     return (
       <div>
@@ -27,7 +15,9 @@ class CategoryList extends React.Component {
           categories.map(category => {
             const categories = category.categories || [];
             return (
-              <Category key={category.id} level={0} title={category.title} categories={categories}/>
+              <Item.Group divided key={category.id}>
+                <Category key={category.id} level={0} title={category.title} categories={categories} />
+              </Item.Group>
             );
           })
         }
