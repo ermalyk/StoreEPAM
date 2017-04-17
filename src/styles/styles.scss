@@ -39,8 +39,6 @@ progress {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid black;
-            // width: 300px;
             height: 40px;
             button {
                 height: 15px;
@@ -53,6 +51,22 @@ progress {
             .addItem {
                 background: url('../images/add-button.png') no-repeat;
                 background-size: 100%;
+            }
+            .icon-button {
+                display: flex;
+                justify-content: space-around;
+                width: 15px;
+                height: 15px;
+                div {
+                    width: 15px;
+                    height: 15px;
+                    margin-top: -7px;
+                    margin-left: -2px;
+                }
+                .visible.content {
+                    width: 15px;
+                    height: 15px;
+                }
             }
         }
     }

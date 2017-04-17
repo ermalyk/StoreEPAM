@@ -27,6 +27,10 @@ class HomePage extends React.Component {
         });
     }
 
+    changeToDoItems(category) {
+      this.state.data.filter
+    }
+
     render() {
       let toggle = () => this.setState({ percent: this.state.percent === 0 ? 100 : 0 });
         return (

@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react';
 import ToDoItem from './ToDoItem.jsx';
+import { Item } from 'semantic-ui-react';
+
 class ToDoItemList extends React.Component {
   render() {
     const {categories} = this.props;
 
     return (
-      <div className="">
+      <Item.Group divided>
         {
           categories.map((category, i) => {
             return (
@@ -13,7 +15,7 @@ class ToDoItemList extends React.Component {
             );
           })
         }
-      </div>
+      </Item.Group>
     );
   }
 }

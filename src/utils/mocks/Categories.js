@@ -1,6 +1,7 @@
 const Categories = [{
         "id": 1,
         "level": 1,
+        "pressed": true,
         "title": 'Category 1',
         "categories": [],
         "items": [{
@@ -44,14 +45,14 @@ const Categories = [{
                 "id": 2,
                 "title": 'Category 3 2',
                 "categories": [{
-                      "id": 1,
-                      "title": 'Category 3 2 1',
-                  },
-                  {
-                      "id": 2,
-                      "title": 'Category 3 2 2'
-                  }
-              ],
+                        "id": 1,
+                        "title": 'Category 3 2 1',
+                    },
+                    {
+                        "id": 2,
+                        "title": 'Category 3 2 2'
+                    }
+                ],
             }
         ],
         "items": []
