@@ -13,7 +13,8 @@ class HomePage extends React.Component {
       this.state = {
         data: [],
         isloading: false,
-        percent: 40
+        percent: 40,
+        expandCategories: []
       }
     }
 
@@ -21,6 +22,12 @@ class HomePage extends React.Component {
       Helper.getCategories().then(
         data => {
           this.setState({ data });
+          this.setState({
+            expandCategories: data.map((category) => {
+              category.id = category.id;
+            })
+          });
+          console.log('expandCategories', this.state.expandCategories);
         },
         err => {
           console.error('Uups');

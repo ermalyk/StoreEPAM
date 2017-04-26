@@ -2,14 +2,19 @@ import React, { PropTypes } from 'react';
 import Header from './common/Header.jsx';
 
 class App extends React.Component {
-    render() {
-        return (
-          <div>
-            <Header/>
-            {this.props.children}
-          </div>
-        );
-    }
+  constructor(props) {
+    super(props);
+  }
+
+
+  render() {
+      return (
+        <div>
+          <Header/>
+          {this.props.children}
+        </div>
+      );
+  }
 }
 
 App.propTypes = {

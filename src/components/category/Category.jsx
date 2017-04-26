@@ -12,6 +12,7 @@ class Category extends React.Component {
       isExpanded: false,
       checked: false
     };
+
   }
 
   render() {
@@ -26,7 +27,7 @@ class Category extends React.Component {
             <div></div>
             <div className="category" style={{width}}>
                 <div className="category-title">
-                  <Button animated="fade" className="icon-button">
+                  <Button animated="fade" className="icon-button" onClick={this.onClickCategory}>
                     <Button.Content visible>
                       <Icon name="expand" />
                     </Button.Content>

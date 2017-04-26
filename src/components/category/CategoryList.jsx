@@ -1,15 +1,27 @@
 import React, { PropTypes } from 'react';
 import Category from '../category/Category.jsx';
 import { Item } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
+// @connect((store) => {
+//   retrun {
+//     foo: 1
+//   };
+// })
 class CategoryList extends React.Component {
   constructor(props) {
     super(props);
-    // onClickCategory= this.onClickCategory().bind(this);
-}
+
+    //this.onClickCategory= this.onClickCategory().bind(this);
+  }
+
+  onClickCategory () {
+
+  }
 
   render() {
-    const {categories, level} = this.props;
+    const {store, categories, level} = this.props;
+    console.log(store);
     // console.log('this.props.categories', this.props.categories);
     return (
       <div>
@@ -19,7 +31,7 @@ class CategoryList extends React.Component {
               const categories = category.categories || [];
               return (
                 <Item.Group divided key={category.id}>
-                  <Category key={category.id} level={0} checked={false} title={category.title} categories={categories} onClick={this.onClickCategory} />
+                  <Category key={category.id} level={0} checked={false} title={category.title} categories={categories} onClickCategory={this.onClickCategory} />
                 </Item.Group>
               );
             })
@@ -31,7 +43,8 @@ class CategoryList extends React.Component {
 }
 
 CategoryList.PropTypes = {
-  categories: PropTypes.object.isRequired
+  categories: PropTypes.object.isRequired,
+  onClickCategory: PropTypes.func.isRequired
 };
 
 export default CategoryList;
