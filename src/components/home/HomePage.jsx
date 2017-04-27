@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 // import '../semantic/dist/semantic.min.css';
 import CategoryList from '../category/CategoryList.jsx';
@@ -6,28 +7,15 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-class HomePage extends React.Component {
-    constructor(props) {
-      super(props);
+import { setCategoryList } from '../category/actions.js'
 
-      this.state = {
-        data: [],
-        isloading: false,
-        percent: 40,
-        expandCategories: []
-      }
-    }
+class HomePage extends React.Component {
 
     componentWillMount() {
+      // this.props.dispatch(getCategoryList(data));
       Helper.getCategories().then(
         data => {
-          this.setState({ data });
-          this.setState({
-            expandCategories: data.map((category) => {
-              category.id = category.id;
-            })
-          });
-          console.log('expandCategories', this.state.expandCategories);
+          this.props.dispatch(setCategoryList(data));
         },
         err => {
           console.error('Uups');
@@ -35,11 +23,14 @@ class HomePage extends React.Component {
     }
 
     changeToDoItems(category) {
-      this.state.data.filter
+      // this.state.data.filter
     }
 
     render() {
-      let toggle = () => this.setState({ percent: this.state.percent === 0 ? 100 : 0 });
+      const { categories } = this.props;
+      let toggle = () => {
+        // Dispathc action
+      };
         return (
           <div>
             <div className="search">
@@ -51,8 +42,8 @@ class HomePage extends React.Component {
               </div>
             </div>
 
-            <div>{this.state.percent}
-              <Progress percent={this.state.percent} autoSuccess />
+            <div>
+              <Progress percent={60} autoSuccess />
               <Button onClick={toggle}>Toggle Complete</Button>
             </div>
             <div className="add-text-fields">
@@ -67,10 +58,10 @@ class HomePage extends React.Component {
             </div>
             <div className="home-page">
               <div className="categories-section">
-                <CategoryList className="category-list" categories={this.state.data} />
+                <CategoryList className="category-list" categories={categories} />
               </div>
               <div className="item-section">
-                <ToDoItemList className="item-list" categories={this.state.data} />
+                <ToDoItemList className="item-list" categories={categories} />
               </div>
             </div>
           </div>
@@ -78,4 +69,8 @@ class HomePage extends React.Component {
     }
 }
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+  categories: state.categories.list
+})
+
+export default connect(mapStateToProps)(HomePage);
