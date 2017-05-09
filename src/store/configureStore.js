@@ -3,6 +3,7 @@ import { routerMiddleware } from 'react-router-redux';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import thunk from 'redux-thunk';
 import rootReducer from '../reducers/category-reducers';
+import { browserHistory } from 'react-router';
 
 function configureStoreProd(initialState) {
     const middlewares = [
