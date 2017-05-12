@@ -12,8 +12,9 @@ export const addCategory = (newCategory) => ({
   newCategory
 })
 
-export const toggleCategory = (id) => ({
+export const toggleCategory = (id, level) => ({
   type: TOGGLE_CATEGORY,
-  id
+  id,
+  level
 })
 

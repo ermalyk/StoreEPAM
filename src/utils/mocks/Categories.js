@@ -6,11 +6,13 @@ const Categories = [{
         "categories": [],
         "items": [{
                 "checked": false,
-                "title": 'To-Do Item #1'
+                "title": 'To-Do Item #1',
+                "categories": []
             },
             {
                 "checked": false,
-                "title": 'To-Do Item #2'
+                "title": 'To-Do Item #2',
+                "categories": []
             }
         ]
     },
@@ -20,15 +22,18 @@ const Categories = [{
         "title": 'Category 2',
         "categories": [{
                 "id": 1,
-                "title": 'Category 2 1'
+                "title": 'Category 2 1',
+                "categories": []
             },
             {
                 "id": 2,
-                "title": 'Category 2 2'
+                "title": 'Category 2 2',
+                "categories": []
             },
             {
                 "id": 3,
-                "title": 'Category 2 3'
+                "title": 'Category 2 3',
+                "categories": []
             }
         ],
         "items": []
@@ -40,6 +45,7 @@ const Categories = [{
         "categories": [{
                 "id": 1,
                 "title": 'Category 3 1',
+                "categories": []
             },
             {
                 "id": 2,
@@ -47,10 +53,12 @@ const Categories = [{
                 "categories": [{
                         "id": 1,
                         "title": 'Category 3 2 1',
+                        "categories": []
                     },
                     {
                         "id": 2,
-                        "title": 'Category 3 2 2'
+                        "title": 'Category 3 2 2',
+                        "categories": []
                     }
                 ],
             }

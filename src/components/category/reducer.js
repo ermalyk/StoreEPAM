@@ -4,27 +4,26 @@ import {
     TOGGLE_CATEGORY
 } from './actions';
 
-let deepMap1 = (list, id) => {
-
+let deepMap = (list, id, level, currentLevel) => {
     return list.map((category) => {
         console.log('----------------------------------------------------');
         console.log('[category] = ', category);
         console.log('[id] = ', id);
         console.log('----------------------------------------------------');
-        if (category.id && category.id === id) {
+        if (level === currentLevel && category.id && category.id === id) {
             console.log('first');
-            // return {...category, active: !category.active }
+            return {...category, active: !category.active }
         }
         if (category.categories.length > 0) {
             console.log('second');
-            deepMap(category.categories, id);
+            return {...category, categories: deepMap(category.categories, id, level, ++currentLevel)};
         }
         console.log('third');
         return category;
     })
 };
 
-let deepMap = (category, id) => {
+let deepMap1 = (category, id) => {
     let finded = false;
     category.map((category) => {
         if (finded) return;
@@ -44,7 +43,7 @@ let deepMap = (category, id) => {
     return category;
 };
 
-export const reducer = (state = {}, action) => {
+export const reducer = (state = {list: []}, action) => {
     switch (action.type) {
         case SET_CATEGORY_LIST:
             return {
@@ -60,13 +59,12 @@ export const reducer = (state = {}, action) => {
 
             console.log('state.list', state.list);
             console.log('action.id', action.id);
-            let newState = {...state };
 
-            let a = deepMap(newState.list, action.id);
+            let a = deepMap(state.list, action.id, action.level, 0);
             console.log('a', a);
             return {
                 ...state,
-                ...a
+                list: a
             };
             // return {
             //     ...state,

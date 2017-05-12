@@ -7,7 +7,7 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-import { setCategoryList } from '../category/actions.js'
+import { setCategoryList } from '../category/actions.js';
 
 class HomePage extends React.Component {
 
@@ -28,6 +28,7 @@ class HomePage extends React.Component {
 
     render() {
       const { categories } = this.props;
+
       let toggle = () => {
         // Dispathc action
       };

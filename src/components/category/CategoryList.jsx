@@ -15,10 +15,6 @@ class CategoryList extends React.Component {
     //this.onClickCategory= this.onClickCategory().bind(this);
   }
 
-  onClickCategory () {
-
-  }
-
   render() {
     const {store, categories, level} = this.props;
     console.log(store);
@@ -31,7 +27,7 @@ class CategoryList extends React.Component {
               const categories = category.categories || [];
               return (
                 <Item.Group divided key={category.id}>
-                  <Category key={category.id} level={0} checked={false} title={category.title} categories={categories} onClickCategory={this.onClickCategory} />
+                  <Category key={category.id} id={category.id} level={0} checked={false} title={category.title} categories={categories} onClickCategory={this.onClickCategory} />
                 </Item.Group>
               );
             })
