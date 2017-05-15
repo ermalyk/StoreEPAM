@@ -18,7 +18,15 @@ class Category extends React.Component {
   // }
 
   render() {
-    const {id, level, onCategoryClick, categories, active} = this.props;
+    const {
+      id,
+      level,
+      title,
+      onCategoryClick,
+      categories,
+      active
+    } = this.props;
+
     const width = (100 - this.props.level * 10) + '%';
     // console.log(level, ' ', width); console.log(this.props);
     return (
@@ -29,10 +37,11 @@ class Category extends React.Component {
             width
           }}>
             <div className="category-title">
+                  [{level}]
               <Button
                 animated="fade"
                 className="icon-button"
-                onClick={() => this.props.onCategoryClick(id, level)}>
+                onClick={() => onCategoryClick(id, level)}>
                 <Button.Content visible>
                   <Icon name="expand"/>
                 </Button.Content>
@@ -41,7 +50,7 @@ class Category extends React.Component {
                 </Button.Content>
               </Button>
 
-              <label>{this.props.title}</label>
+              <label>{title}</label>
 
               <Button animated="fade" className="icon-button">
                 <Button.Content visible>
@@ -76,25 +85,27 @@ class Category extends React.Component {
         </div>
         <div className={active ? '' : 'hideCategory'}>
           {categories
-            .map(category => (<Category
+            .map(category => (<div>[{category.id}, {level}, {category.active? 'true' : 'false'}]<Category
               key={category.id}
               id={category.id}
-              active={category.active}
+              active={category.active ? true : false}
               level={level + 1}
               title={category.title}
               categories={category.categories || []}
               onCategoryClick={onCategoryClick}
-            />))}   
-          </div>   
+            /></div>))}
+          </div>
       </Item>
     );
   }
 }
 
 Category.PropTypes = {
-  level: PropTypes.number.isRequired,
   id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
   active: PropTypes.bool.isRequired,
+  categories: PropTypes.array.isRequired,
   onCategoryClick: PropTypes.func.isRequired
 };
 

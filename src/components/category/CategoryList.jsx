@@ -16,17 +16,17 @@ class CategoryList extends React.Component {
           {
             categories.map(category => {
               const categories = category.categories || [];
-              console.log(category.active);
+              console.log(category.active? 'true' : 'false');
               return (
                 <Item.Group divided key={category.id}>
-                  <Category 
+                  <Category
                     key={category.id}
-                    active={category.active}
-                    id={category.id} 
-                    level={0} 
-                    checked={false} 
-                    title={category.title} 
-                    categories={categories} 
+                    active={category.active? true: false}
+                    id={category.id}
+                    level={0}
+                    checked={false}
+                    title={category.title}
+                    categories={categories}
                     onCategoryClick={onCategoryClick}
                   />
                 </Item.Group>
