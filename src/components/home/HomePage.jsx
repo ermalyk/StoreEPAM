@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 // import '../semantic/dist/semantic.min.css';
 import CategoryList from '../category/CategoryList.jsx';
@@ -7,21 +8,28 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-import { setCategoryList } from '../category/actions.js';
+import { setCategoryList, toggleCategory } from '../category/actions.js';
 
 class HomePage extends React.Component {
 
-    componentWillMount() {
+    componentDidMount() {
       // this.props.dispatch(getCategoryList(data));
+      
       Helper.getCategories().then(
         data => {
-          this.props.dispatch(setCategoryList(data));
+          console.log(data);
+          // this.props.dispatch(setCategoryList(data));
+          this.props.setCategoryList(data);
         },
         err => {
           console.error('Uups');
         });
     }
 
+    // onClickCategory(id, level) {
+    //   this.props.dispatch(toggleCategory(id, level));
+    // }
+    
     changeToDoItems(category) {
       // this.state.data.filter
     }
@@ -59,10 +67,10 @@ class HomePage extends React.Component {
             </div>
             <div className="home-page">
               <div className="categories-section">
-                <CategoryList className="category-list" categories={categories} />
+                <CategoryList className="category-list" categories={categories} onCategoryClick={this.props.toggleCategory} />
               </div>
               <div className="item-section">
-                <ToDoItemList className="item-list" categories={categories} />
+                <ToDoItemList className="item-list" categories={categories} onCategoryClick={this.props.toggleCategory} />
               </div>
             </div>
           </div>
@@ -74,4 +82,15 @@ const mapStateToProps = (state) => ({
   categories: state.categories.list
 })
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleCategory: bindActionCreators(toggleCategory, dispatch),
+    setCategoryList: bindActionCreators(setCategoryList, dispatch)
+  };
+}
+
+// const mapStateToProps = (state) => {
+//   return {categories: state.categories.list}
+// };
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

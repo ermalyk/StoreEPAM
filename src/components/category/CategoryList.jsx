@@ -3,31 +3,32 @@ import Category from '../category/Category.jsx';
 import { Item } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
-// @connect((store) => {
-//   retrun {
-//     foo: 1
-//   };
-// })
 class CategoryList extends React.Component {
   constructor(props) {
     super(props);
-
-    //this.onClickCategory= this.onClickCategory().bind(this);
   }
 
   render() {
-    const {store, categories, level} = this.props;
-    console.log(store);
-    // console.log('this.props.categories', this.props.categories);
+    const {categories, level, onCategoryClick} = this.props;
     return (
       <div>
         <Item.Group divided>
           {
             categories.map(category => {
               const categories = category.categories || [];
+              console.log(category.active);
               return (
                 <Item.Group divided key={category.id}>
-                  <Category key={category.id} id={category.id} level={0} checked={false} title={category.title} categories={categories} onClickCategory={this.onClickCategory} />
+                  <Category 
+                    key={category.id}
+                    active={category.active}
+                    id={category.id} 
+                    level={0} 
+                    checked={false} 
+                    title={category.title} 
+                    categories={categories} 
+                    onCategoryClick={onCategoryClick}
+                  />
                 </Item.Group>
               );
             })

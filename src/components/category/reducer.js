@@ -56,7 +56,6 @@ export const reducer = (state = {list: []}, action) => {
                 list: state.list.push(action.newCategory)
             }
         case TOGGLE_CATEGORY:
-
             console.log('state.list', state.list);
             console.log('action.id', action.id);
 

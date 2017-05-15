@@ -1,13 +1,10 @@
-import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 import CategoryList from './CategoryList.jsx';
-import { Button, Item, Icon } from 'semantic-ui-react';
-import { toggleCategory } from '../category/actions.js'
+import {Button, Item, Icon} from 'semantic-ui-react';
+// import { toggleCategory } from '../category/actions.js'
 //
 // <CategoryList categories={this.props.categories} />
-
-
-
 
 class Category extends React.Component {
   constructor(props) {
@@ -15,73 +12,80 @@ class Category extends React.Component {
     // this.onClickCategory = this.onClickCategory.bind(this);
   }
 
-  onClickCategory(id, level) {
-    debugger;
-    this.props.dispatch(toggleCategory(id, level));
-  }
+  // onClickCategory(id, level) {
+  //   // debugger;
+  //   toggleCategory(id, level);
+  // }
 
   render() {
-    const {id, level} = this.props;
+    const {id, level, onCategoryClick, categories, active} = this.props;
     const width = (100 - this.props.level * 10) + '%';
-    // console.log(level, ' ', width);
-    // console.log(this.props);
+    // console.log(level, ' ', width); console.log(this.props);
     return (
-      <Item className="all-categories" >
-        <div className="category-wrap" >
+      <Item className="all-categories">
+        <div className="category-wrap">
           <div></div>
-          <div className="category" style={{width}}>
-              <div className="category-title">
-                <Button animated="fade" className="icon-button" onClick={() => this.onClickCategory(id, level)}>
-                  <Button.Content visible>
-                    <Icon name="expand" />
-                  </Button.Content>
-                  <Button.Content hidden>
-                    expand
-                  </Button.Content>
-                </Button>
+          <div className="category" style={{
+            width
+          }}>
+            <div className="category-title">
+              <Button
+                animated="fade"
+                className="icon-button"
+                onClick={() => this.props.onCategoryClick(id, level)}>
+                <Button.Content visible>
+                  <Icon name="expand"/>
+                </Button.Content>
+                <Button.Content hidden>
+                  expand
+                </Button.Content>
+              </Button>
 
-                <label>{this.props.title}</label>
+              <label>{this.props.title}</label>
 
-                <Button animated="fade" className="icon-button">
-                  <Button.Content visible>
-                    <Icon name="edit" />
-                  </Button.Content>
-                  <Button.Content hidden>
-                    edit
-                  </Button.Content>
-                </Button>
-              </div>
+              <Button animated="fade" className="icon-button">
+                <Button.Content visible>
+                  <Icon name="edit"/>
+                </Button.Content>
+                <Button.Content hidden>
+                  edit
+                </Button.Content>
+              </Button>
+            </div>
 
-              <div className="delete-and-add-category">
-                <Button animated="fade" className="icon-button">
-                  <Button.Content visible>
-                    <Icon name="trash outline" />
-                  </Button.Content>
-                  <Button.Content hidden>
-                    Delete
-                  </Button.Content>
-                </Button>
+            <div className="delete-and-add-category">
+              <Button animated="fade" className="icon-button">
+                <Button.Content visible>
+                  <Icon name="trash outline"/>
+                </Button.Content>
+                <Button.Content hidden>
+                  Delete
+                </Button.Content>
+              </Button>
 
-                <Button animated="fade" className="icon-button">
-                  <Button.Content visible>
-                    <Icon name="add square" />
-                  </Button.Content>
-                  <Button.Content hidden>
-                    Add
-                  </Button.Content>
-                </Button>
+              <Button animated="fade" className="icon-button">
+                <Button.Content visible>
+                  <Icon name="add square"/>
+                </Button.Content>
+                <Button.Content hidden>
+                  Add
+                </Button.Content>
+              </Button>
             </div>
           </div>
         </div>
-        {this.props.categories.map(category => (
-          <Category
-            key={category.id}
-            id={category.id}
-            level={level + 1}
-            title={category.title}
-            categories={category.categories || []}
-          />
-        ))}
+        <div className={active ? '' : 'hideCategory'}>
+          {categories
+            .map(category => (<Category
+              key={category.id}
+              id={category.id}
+              active={category.active}
+              level={level + 1}
+              title={category.title}
+              categories={category.categories || []}
+              onCategoryClick={onCategoryClick}
+            />))}   
+          </div>   
       </Item>
     );
   }
@@ -89,7 +93,19 @@ class Category extends React.Component {
 
 Category.PropTypes = {
   level: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired
+  id: PropTypes.number.isRequired,
+  active: PropTypes.bool.isRequired,
+  onCategoryClick: PropTypes.func.isRequired
 };
 
-export default connect()(Category);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     toggleCategory: bindActionCreators(toggleCategory, dispatch)
+//   };
+// }
+
+// const mapStateToProps = (state) => {
+//   return {categories: state.categories.list}
+// };
+
+export default Category;

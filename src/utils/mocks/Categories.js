@@ -3,6 +3,7 @@ const Categories = [{
         "level": 1,
         "pressed": true,
         "title": 'Category 1',
+        "active": false,
         "categories": [],
         "items": [{
                 "checked": false,
@@ -20,6 +21,7 @@ const Categories = [{
         "id": 2,
         level: 1,
         "title": 'Category 2',
+        "active": false,
         "categories": [{
                 "id": 1,
                 "title": 'Category 2 1',
@@ -42,6 +44,7 @@ const Categories = [{
         "id": 3,
         "level": 1,
         "title": 'Category 3',
+        "active": false,
         "categories": [{
                 "id": 1,
                 "title": 'Category 3 1',

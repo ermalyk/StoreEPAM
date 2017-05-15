@@ -76,14 +76,22 @@ progress {
         height: 500px;
         overflow-y: scroll;
     }
+    
+    .hideCategory {
+      display: none;
+    }
+
+
     .all-categories {
         display: flex;
         flex-direction: column;
         justify-content: center;
+
         .category-wrap {
             display: flex;
             justify-content: space-between;
             .category {
+
                 display: flex;
                 justify-content: space-between;
                 align-items: center;

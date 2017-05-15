@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import categoryRedusers from './category-reducers';
+import category from './category-reducers';
 import { routerReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
-    categoryRedusers,
+    category,
     routing: routerReducer
 });
 
