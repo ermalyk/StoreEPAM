@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Button, Item, Icon, Checkbox } from 'semantic-ui-react';
 
 class ToDoItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
+
+    const {
+      item
+    } = this.props;
+
+    console.log('todoitem item', item);
     return (
       <Item className="to-do-item" >
-        <Checkbox label="To-Do Item #1" />
+        <Checkbox />
+        <label>{item.title}</label>
         <Button animated="fade" className="icon-button">
           <Button.Content visible>
             <Icon name="add square" />
@@ -22,5 +29,9 @@ class ToDoItem extends React.Component {
     );
   }
 }
+
+ToDoItem.PropTypes = {
+  // item: PropTypes.object.isRequired
+};
 
 export default ToDoItem;

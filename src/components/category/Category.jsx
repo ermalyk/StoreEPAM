@@ -24,15 +24,21 @@ class Category extends React.Component {
       title,
       onCategoryClick,
       categories,
-      active
+      active,
+      showCategoryItems
     } = this.props;
 
+
+console.log('--------id--------', id);
     const width = (100 - this.props.level * 10) + '%';
     // console.log(level, ' ', width); console.log(this.props);
+    // console.log('--------------category-------------');
+    // console.log(categories);
+    // console.log('--------------category-------------');
     return (
-      <Item className="all-categories">
-        <div className="category-wrap">
-          <div></div>
+      <Item className="all-categories" key={id}>
+        <div className="category-wrap"  onClick={() => showCategoryItems(id)}>
+          <div/>
           <div className="category" style={{
             width
           }}>
@@ -93,6 +99,7 @@ class Category extends React.Component {
               title={category.title}
               categories={category.categories || []}
               onCategoryClick={onCategoryClick}
+              showCategoryItems={showCategoryItems}
             /></div>))}
           </div>
       </Item>
@@ -106,7 +113,8 @@ Category.PropTypes = {
   level: PropTypes.number.isRequired,
   active: PropTypes.bool.isRequired,
   categories: PropTypes.array.isRequired,
-  onCategoryClick: PropTypes.func.isRequired
+  onCategoryClick: PropTypes.func.isRequired,
+  showCategoryItems: PropTypes.func.isRequired
 };
 
 // const mapDispatchToProps = (dispatch) => {
