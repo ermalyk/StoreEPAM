@@ -92,14 +92,15 @@ let getItemsForSelectedCategory2 = (categories, id) => {
 
 const getItemsForSelectedCategory = (categories, id) => {
     console.log('categories, id ', categories, id);
-
+    var a = [];
     for (let category of categories) {
         if (category.id && category.id === id) {
             // console.log('-------------------------------------');
             // console.log('first');
             // console.log('category', category);
             // console.log('-------------------------------------');
-            return category.items;
+            a = category.items;
+            //return category.items;
             // return category.items;
         }
         if (category.categories.length > 0) {
@@ -107,9 +108,29 @@ const getItemsForSelectedCategory = (categories, id) => {
             // console.log('second');
             // console.log('category', category);
             // console.log('-------------------------------------');
-            return getItemsForSelectedCategory(category.categories, id);
+            getItemsForSelectedCategory(category.categories, id);
         }
     }
+    return a;
+}
+
+
+const getItemsForSelectedCategory22 = (categories, id, index) => {
+    // for (let category of categories) {
+    if (categories[index].id && categories[index].id === id) {
+        console.log('1.categories[index]=', categories[index]);
+        return categories[index].items || [];
+    }
+    if (categories[index].categories.length > 0) {
+        console.log('2.categories[index]=', categories[index]);
+        return getItemsForSelectedCategory22(categories[index].categories, id, index) || [];
+    }
+    if (categories.categories[index + 1]) {
+        console.log('3.categories[index]=', categories[index]);
+        return getItemsForSelectedCategory22(categories, id, index + 1) || [];
+    }
+    //return [];
+    // }
 }
 
 // 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -150,7 +171,7 @@ export const reducer = (state = { list: [] }, action) => {
             console.log('deepMapGetItems----------------========', b);
 
             let listShow = {};
-            listShow.activeItems = getItemsForSelectedCategory(state.list.categories, action.id) || [];
+            listShow.activeItems = getItemsForSelectedCategory22(state.list.categories, action.id, 0) || [];
             console.log('listShow.activeItems', listShow.activeItems);
             listShow.categories = state.list.categories;
             listShow.pressedId = action.id;
