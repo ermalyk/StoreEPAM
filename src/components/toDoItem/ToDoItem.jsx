@@ -11,7 +11,7 @@ class ToDoItem extends React.Component {
     const {
       item
     } = this.props;
-
+    //{item.title}
     console.log('todoitem item', item);
     return (
       <Item className="to-do-item" >

@@ -116,7 +116,7 @@ const getItemsForSelectedCategory = (categories, id) => {
 
 
 const getItemsForSelectedCategory22 = (categories, id, index) => {
-    // for (let category of categories) {
+    //for (let category of categories) {
     if (categories[index].id && categories[index].id === id) {
         console.log('1.categories[index]=', categories[index]);
         return categories[index].items || [];
@@ -130,7 +130,45 @@ const getItemsForSelectedCategory22 = (categories, id, index) => {
         return getItemsForSelectedCategory22(categories, id, index + 1) || [];
     }
     //return [];
-    // }
+    //}
+}
+
+const getItemsForSelectedCategory23 = (categories, id, res) => {
+  console.log('ehooooooooooooooooooooooo');
+  console.log('categories', categories);
+  console.log('res = ', res);
+    for (let category of categories) {
+
+      console.log('----------------------s-----------------------------------');
+      console.log('category = ', category);
+      console.log('category.id && category.id = ', (category.id && category.id === id));
+      console.log('----------------------e-----------------------------------');
+      console.log('---------------------------------------------------------');
+      if (category.id && category.id === id) {
+          console.log('1.categories[index]=', category);
+          console.log('category.items = ', category.items);
+          res = res.concat(category.items);
+          return res;
+      }
+      console.log('----------------------s-----------------------------------');
+      console.log('category = ', category);
+      console.log('category.categories.length = ', category.categories.length);
+      console.log('----------------------e-----------------------------------');
+      console.log('---------------------------------------------------------');
+      if (category.categories.length > 0) {
+          console.log('2.categories[index]=', category);
+
+          //res = ((res.length === 0) : 0 ? 1);
+          if (res.length === 0) {
+            res = res.concat(getItemsForSelectedCategory23(category.categories, id, res))
+          }
+
+          // getItemsForSelectedCategory23(category.categories, id, res)
+      }
+      console.log('ressssssssssssssss = ', res);
+    //return [];
+    }
+    return res;
 }
 
 // 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -148,7 +186,7 @@ export const reducer = (state = { list: [] }, action) => {
         case ADD_CATEGORY:
             return {
                 ...state,
-                list: state.list.push(action.newCategory)
+                list: [...state.list, action.newCategory]
             }
         case TOGGLE_CATEGORY:
             // console.log('state', state);
@@ -170,9 +208,12 @@ export const reducer = (state = { list: [] }, action) => {
             let b = deepMapGetItems(state.list.categories, action.id);
             console.log('deepMapGetItems----------------========', b);
 
-            let listShow = {};
-            listShow.activeItems = getItemsForSelectedCategory22(state.list.categories, action.id, 0) || [];
+            let listItems = {};
+            let listShow = [];
+            listShow.activeItems = getItemsForSelectedCategory23(state.list.categories, action.id, listShow) || {};
+            console.log('======================================================');
             console.log('listShow.activeItems', listShow.activeItems);
+            console.log('======================================================');
             listShow.categories = state.list.categories;
             listShow.pressedId = action.id;
 
