@@ -16,7 +16,7 @@ class ToDoItem extends React.Component {
     return (
       <Item className="to-do-item" >
         <Checkbox />
-        <label>{item.title}</label>
+        <label>{item.title || 'No Items'}</label>
         <Button animated="fade" className="icon-button">
           <Button.Content visible>
             <Icon name="add square" />

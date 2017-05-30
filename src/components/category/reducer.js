@@ -90,7 +90,7 @@ let getItemsForSelectedCategory2 = (categories, id) => {
     return [];
 }
 
-const getItemsForSelectedCategory = (categories, id) => {
+const getItemsForSelectedCategory213 = (categories, id) => {
     console.log('categories, id ', categories, id);
     var a = [];
     for (let category of categories) {
@@ -108,7 +108,7 @@ const getItemsForSelectedCategory = (categories, id) => {
             // console.log('second');
             // console.log('category', category);
             // console.log('-------------------------------------');
-            getItemsForSelectedCategory(category.categories, id);
+            getItemsForSelectedCategory213(category.categories, id);
         }
     }
     return a;
@@ -133,44 +133,21 @@ const getItemsForSelectedCategory22 = (categories, id, index) => {
     //}
 }
 
-const getItemsForSelectedCategory23 = (categories, id, res) => {
-  console.log('ehooooooooooooooooooooooo');
-  console.log('categories', categories);
-  console.log('res = ', res);
+const getItemsForSelectedCategory = (categories, id, res) => {
     for (let category of categories) {
-
-      console.log('----------------------s-----------------------------------');
-      console.log('category = ', category);
-      console.log('category.id && category.id = ', (category.id && category.id === id));
-      console.log('----------------------e-----------------------------------');
-      console.log('---------------------------------------------------------');
       if (category.id && category.id === id) {
-          console.log('1.categories[index]=', category);
-          console.log('category.items = ', category.items);
           res = res.concat(category.items);
+          res = res.filter(function(n){ return n != undefined });
           return res;
       }
-      console.log('----------------------s-----------------------------------');
-      console.log('category = ', category);
-      console.log('category.categories.length = ', category.categories.length);
-      console.log('----------------------e-----------------------------------');
-      console.log('---------------------------------------------------------');
       if (category.categories.length > 0) {
-          console.log('2.categories[index]=', category);
-
-          //res = ((res.length === 0) : 0 ? 1);
-          if (res.length === 0) {
-            res = res.concat(getItemsForSelectedCategory23(category.categories, id, res))
-          }
-
-          // getItemsForSelectedCategory23(category.categories, id, res)
+          res = getItemsForSelectedCategory(category.categories, id, res);
+          res = res.filter(function(n){ return n != undefined });
       }
-      console.log('ressssssssssssssss = ', res);
-    //return [];
     }
+    res = res.filter(function(n){ return n != undefined });
     return res;
 }
-
 // 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
 //     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
 //     return v.toString(16);
@@ -206,14 +183,9 @@ export const reducer = (state = { list: [] }, action) => {
         case SHOW_CATEGORY_ITEMS:
 
             let b = deepMapGetItems(state.list.categories, action.id);
-            console.log('deepMapGetItems----------------========', b);
 
-            let listItems = {};
-            let listShow = [];
-            listShow.activeItems = getItemsForSelectedCategory23(state.list.categories, action.id, listShow) || {};
-            console.log('======================================================');
-            console.log('listShow.activeItems', listShow.activeItems);
-            console.log('======================================================');
+            let listShow = {};
+            listShow.activeItems = getItemsForSelectedCategory(state.list.categories, action.id, []) || [];
             listShow.categories = state.list.categories;
             listShow.pressedId = action.id;
 
