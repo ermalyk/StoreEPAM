@@ -25,6 +25,7 @@ class Category extends React.Component {
       onCategoryClick,
       categories,
       active,
+      pressedId,
       showCategoryItems
     } = this.props;
 
@@ -37,13 +38,12 @@ console.log('--------id--------', id);
     // console.log('--------------category-------------');
     return (
       <Item className="all-categories" key={id}>
-        <div className="category-wrap"  onClick={() => showCategoryItems(id)}>
+        <div  className={(pressedId === id) ? 'category-wrap activeCategory' : 'category-wrap'}  onClick={() => showCategoryItems(id)}>
           <div/>
           <div className="category" style={{
             width
           }}>
             <div className="category-title">
-                  [{level}]
               <Button
                 animated="fade"
                 className="icon-button"
@@ -91,12 +91,13 @@ console.log('--------id--------', id);
         </div>
         <div className={active ? '' : 'hideCategory'}>
           {categories
-            .map(category => (<div>[{category.id}, {level}, {category.active? 'true' : 'false'}]<Category
+            .map(category => (<div ><Category
               key={category.id}
               id={category.id}
               active={category.active ? true : false}
               level={level + 1}
               title={category.title}
+              pressedId={pressedId}
               categories={category.categories || []}
               onCategoryClick={onCategoryClick}
               showCategoryItems={showCategoryItems}

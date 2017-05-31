@@ -116,7 +116,7 @@ class HomePage extends React.Component {
             </div>
             <div className="home-page">
               <div className="categories-section">
-                <CategoryList className="category-list" categories={categories} onCategoryClick={this.props.toggleCategory} showCategoryItems={this.props.showCategoryItems}/>
+                <CategoryList className="category-list" pressedId={pressedId} categories={categories} onCategoryClick={this.props.toggleCategory} showCategoryItems={this.props.showCategoryItems}/>
               </div>
               <div className="item-section">
                 <ToDoItemList className="item-list" items={activeItems} />
