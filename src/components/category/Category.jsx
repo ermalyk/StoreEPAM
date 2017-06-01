@@ -11,12 +11,17 @@ class Category extends React.Component {
   constructor(props) {
     super(props);
     // this.onClickCategory = this.onClickCategory.bind(this);
+    this.editCategory = this.editCategory.bind(this);
   }
 
   // onClickCategory(id, level) {
   //   // debugger;
   //   toggleCategory(id, level);
   // }
+
+  editCategory() {
+
+  }
 
   render() {
     const {
@@ -31,16 +36,13 @@ class Category extends React.Component {
       editCategory
     } = this.props;
 
-
-console.log('--------id--------', id);
     const width = (100 - this.props.level * 10) + '%';
-    // console.log(level, ' ', width); console.log(this.props);
-    // console.log('--------------category-------------');
-    // console.log(categories);
-    // console.log('--------------category-------------');
+
     return (
       <Item className="all-categories" key={id}>
-        <div  className={(pressedId === id) ? 'category-wrap activeCategory' : 'category-wrap'}  onClick={() => showCategoryItems(id)}>
+        <div
+          className={(pressedId === id) ? 'category-wrap activeCategory' : 'category-wrap'}
+          onClick={() => showCategoryItems(id)}>
           <div/>
           <div className="category" style={{
             width
@@ -59,7 +61,12 @@ console.log('--------id--------', id);
               </Button>
 
               <label>{title}</label>
-              <ModalDialog />
+              <ModalDialog
+                id={id}
+                title={title}
+                typeName="Category "
+                editCategory={editCategory}
+              />
 
             </div>
 
@@ -105,10 +112,11 @@ console.log('--------id--------', id);
 }
 
 Category.PropTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
   active: PropTypes.bool.isRequired,
+  // callback: PropTypes.func.isRequired,
   categories: PropTypes.array.isRequired,
   onCategoryClick: PropTypes.func.isRequired,
   showCategoryItems: PropTypes.func.isRequired,

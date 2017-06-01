@@ -75,8 +75,8 @@ export const reducer = (state = { list: [] }, action) => {
                 list: {...state.list, categories}
             }
         case EDIT_CATEGORY:
-            console.log('edit category');
-            return {}
+            console.log('edit category', action.id);
+            break;
             // return {
             //     ...state,
             //     list: {...state.list, categories}

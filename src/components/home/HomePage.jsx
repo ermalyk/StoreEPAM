@@ -54,22 +54,15 @@ class HomePage extends React.Component {
       const { categories, pressedId, activeItems } = this.props.categories;
       const { addCategory, editCategory } = this.props;
 
-      console.log('homepage categories', activeItems)
-      console.log('addCategory', addCategory)
-
       function getItemsForSelectedCategory(categories, id) {
-            console.log('categories, id ', categories, id);
             let items = categories.find((category) => {
                 if (category.id && category.id === id) {
-                console.log('first');
                 return category.items;
               }
               if (category.categories.length > 0) {
-                  console.log('second');
                   getItemsForSelectedCategory(category.categories, id);
               }
             });
-            console.log('items ', items);
 
             if(items) return items;
             return {};
@@ -94,8 +87,13 @@ class HomePage extends React.Component {
           </div>
           <div className="add-text-fields">
             <div>
-              <input type="text"  value={this.state.inputNewCategory} onChange={evt => this.updateNewCategoryInputValue(evt)} />
-              <Button className="icon-button" onClick={() => {addCategory(this.state.inputNewCategory)}}>
+              <input
+                type="text"
+                value={this.state.inputNewCategory}
+                onChange={evt => this.updateNewCategoryInputValue(evt)} />
+              <Button
+                className="icon-button"
+                onClick={() => {addCategory(this.state.inputNewCategory)}}>
                 <Button.Content>
                   Add
                 </Button.Content>
@@ -108,7 +106,13 @@ class HomePage extends React.Component {
           </div>
           <div className="home-page">
             <div className="categories-section">
-              <CategoryList className="category-list" pressedId={pressedId} categories={categories} onCategoryClick={this.props.toggleCategory} showCategoryItems={this.props.showCategoryItems} editCategory={editCategory}/>
+              <CategoryList
+                className="category-list"
+                pressedId={pressedId}
+                categories={categories}
+                onCategoryClick={this.props.toggleCategory}
+                showCategoryItems={this.props.showCategoryItems}
+                editCategory={editCategory}/>
             </div>
             <div className="item-section">
               <ToDoItemList className="item-list" items={activeItems} />

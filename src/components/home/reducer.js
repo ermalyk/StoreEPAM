@@ -17,11 +17,8 @@ export const reducer = (state = { list: [] }, action) => {
                 "categories": [],
                 "items": []
             };
-            console.log(state);
-            console.log('newCategory = ', newCategory);
             let categories = state.list.categories;
             categories.push(newCategory);
-            console.log(categories);
             return {
                 ...state,
                 list: {...state.list, categories}

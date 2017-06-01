@@ -5,7 +5,6 @@ import { Item } from 'semantic-ui-react';
 class ToDoItemList extends React.Component {
   render() {
     const {items} = this.props;
-    console.log('toDoItemList categories', items);
     return (
       <div>
         <Item.Group divided>

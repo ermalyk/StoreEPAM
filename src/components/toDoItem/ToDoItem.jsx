@@ -12,7 +12,6 @@ class ToDoItem extends React.Component {
       item
     } = this.props;
     //{item.title}
-    console.log('todoitem item', item);
     return (
       <Item className="to-do-item" >
         <Checkbox />

@@ -12,7 +12,6 @@ class Header extends React.Component {
       browserHistory.push({
         pathname: to
       });
-      console.log(browserHistory);
   }
   render() {
     this.handleItemClick = (e, { name }) => {
