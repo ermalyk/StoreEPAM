@@ -9,7 +9,7 @@ class CategoryList extends React.Component {
   }
 
   render() {
-    const {categories, level, onCategoryClick, showCategoryItems, pressedId} = this.props;
+    const {categories, level, onCategoryClick, showCategoryItems, pressedId, editCategory} = this.props;
     // console.log('CategoryList categories', categories);
     return (
       <div>
@@ -30,6 +30,7 @@ class CategoryList extends React.Component {
                     categories={categories}
                     onCategoryClick={onCategoryClick}
                     showCategoryItems={showCategoryItems}
+                    editCategory={editCategory}
                   />
                 </Item.Group>
               );
@@ -43,9 +44,10 @@ class CategoryList extends React.Component {
 
 CategoryList.PropTypes = {
   categories: PropTypes.object.isRequired,
+  pressedId: PropTypes.string.isRequired,
   onClickCategory: PropTypes.func.isRequired,
   showCategoryItems: PropTypes.func.isRequired,
-  pressedId: PropTypes.string.isRequired
+  editCategory: PropTypes.func.isRequired
 };
 
 export default CategoryList;

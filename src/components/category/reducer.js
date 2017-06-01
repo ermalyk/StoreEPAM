@@ -2,7 +2,9 @@ import {
     SET_CATEGORY_LIST,
     ADD_CATEGORY,
     TOGGLE_CATEGORY,
-    SHOW_CATEGORY_ITEMS
+    SHOW_CATEGORY_ITEMS,
+    ADD_NEW_ITEM,
+    EDIT_CATEGORY
 } from './actions';
 
 let deepMapActiveCategory = (list, id, level, currentLevel) => {
@@ -44,22 +46,46 @@ const getItemsForSelectedCategory = (categories, id, res) => {
     res = res.filter(function(n){ return n != undefined });
     return res;
 }
-// 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-//     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-//     return v.toString(16);
-// });
 
 export const reducer = (state = { list: [] }, action) => {
     switch (action.type) {
         case SET_CATEGORY_LIST:
+
             return {
                 ...state.categories,
                 list: action.categories
             }
         case ADD_CATEGORY:
+            let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+                let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                return v.toString(16);
+            });
+            let newCategory = {
+                "id": newId,
+                "pressed": true,
+                "title": action.newCategoryTitle,
+                "active": false,
+                "categories": [],
+                "items": []
+            };
+            let categories = [...state.list.categories];
+            categories.push(newCategory);
             return {
                 ...state,
-                list: [...state.list, action.newCategory]
+                list: {...state.list, categories}
+            }
+        case EDIT_CATEGORY:
+            console.log('edit category');
+            return {}
+            // return {
+            //     ...state,
+            //     list: {...state.list, categories}
+            // }
+        case ADD_NEW_ITEM:
+
+            return {
+                ...state,
+                list: {...state.list, categories}
             }
         case TOGGLE_CATEGORY:
             let a = deepMapActiveCategory(state.list.categories, action.id, action.level, 0);

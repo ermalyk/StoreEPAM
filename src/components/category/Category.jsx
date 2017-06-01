@@ -26,7 +26,8 @@ class Category extends React.Component {
       categories,
       active,
       pressedId,
-      showCategoryItems
+      showCategoryItems,
+      editCategory
     } = this.props;
 
 
@@ -58,7 +59,7 @@ console.log('--------id--------', id);
 
               <label>{title}</label>
 
-              <Button animated="fade" className="icon-button">
+              <Button animated="fade" className="icon-button" onClick={() => editCategory(id)}>
                 <Button.Content visible>
                   <Icon name="edit"/>
                 </Button.Content>
@@ -101,6 +102,7 @@ console.log('--------id--------', id);
               categories={category.categories || []}
               onCategoryClick={onCategoryClick}
               showCategoryItems={showCategoryItems}
+              editCategory={editCategory}
             /></div>))}
           </div>
       </Item>
@@ -115,7 +117,8 @@ Category.PropTypes = {
   active: PropTypes.bool.isRequired,
   categories: PropTypes.array.isRequired,
   onCategoryClick: PropTypes.func.isRequired,
-  showCategoryItems: PropTypes.func.isRequired
+  showCategoryItems: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired
 };
 
 // const mapDispatchToProps = (dispatch) => {

@@ -8,10 +8,11 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-import { setCategoryList, toggleCategory, showCategoryItems } from '../category/actions.js';
-import {
-    ADD_CATEGORY
-} from './actions';
+import { setCategoryList, toggleCategory, showCategoryItems, addCategory, editCategory } from '../category/actions.js';
+// import { addCategory } from './actions.js';
+// import {
+//     ADD_CATEGORY
+// } from './actions';
 class HomePage extends React.Component {
     constructor(props) {
       super(props);
@@ -19,6 +20,7 @@ class HomePage extends React.Component {
       this.state = {
         inputNewCategory: ''
       }
+      this.updateNewCategoryInputValue = this.updateNewCategoryInputValue.bind(this);
     }
 
     componentDidMount() {
@@ -42,16 +44,18 @@ class HomePage extends React.Component {
       // this.state.data.filter
     }
 
+    updateNewCategoryInputValue(evt) {
+      this.setState({
+        inputNewCategory: evt.target.value
+      });
+    }
 
     render() {
       const { categories, pressedId, activeItems } = this.props.categories;
-      console.log('homepage categories', activeItems)
+      const { addCategory, editCategory } = this.props;
 
-      function updateNewCategoryInputValue(evt){
-        this.setState({
-          inputNewCategory: evt.target.value
-        });
-      }
+      console.log('homepage categories', activeItems)
+      console.log('addCategory', addCategory)
 
       function getItemsForSelectedCategory(categories, id) {
             console.log('categories, id ', categories, id);
@@ -90,10 +94,9 @@ class HomePage extends React.Component {
           </div>
           <div className="add-text-fields">
             <div>
-              <input type="text"  value={this.state.inputNewCategory} onChange={evt => updateNewCategoryInputValue(evt)} />
-              <button onClick={() => addCategory()}>Add</button>
-              <Button className="icon-button">
-                <Button.Content  onClick={() => addCategory()}>
+              <input type="text"  value={this.state.inputNewCategory} onChange={evt => this.updateNewCategoryInputValue(evt)} />
+              <Button className="icon-button" onClick={() => {addCategory(this.state.inputNewCategory)}}>
+                <Button.Content>
                   Add
                 </Button.Content>
               </Button>
@@ -105,7 +108,7 @@ class HomePage extends React.Component {
           </div>
           <div className="home-page">
             <div className="categories-section">
-              <CategoryList className="category-list" pressedId={pressedId} categories={categories} onCategoryClick={this.props.toggleCategory} showCategoryItems={this.props.showCategoryItems}/>
+              <CategoryList className="category-list" pressedId={pressedId} categories={categories} onCategoryClick={this.props.toggleCategory} showCategoryItems={this.props.showCategoryItems} editCategory={editCategory}/>
             </div>
             <div className="item-section">
               <ToDoItemList className="item-list" items={activeItems} />
@@ -131,6 +134,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toggleCategory: bindActionCreators(toggleCategory, dispatch),
     setCategoryList: bindActionCreators(setCategoryList, dispatch),
+    addCategory: bindActionCreators(addCategory, dispatch),
+    editCategory: bindActionCreators(editCategory, dispatch),
     showCategoryItems: bindActionCreators(showCategoryItems, dispatch)
   };
 }
