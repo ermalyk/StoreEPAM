@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import CategoryList from './CategoryList.jsx';
 import {Button, Item, Icon} from 'semantic-ui-react';
+import ModalDialog from '../common/modalDialog';
 // import { toggleCategory } from '../category/actions.js'
 //
 // <CategoryList categories={this.props.categories} />
@@ -58,15 +59,8 @@ console.log('--------id--------', id);
               </Button>
 
               <label>{title}</label>
+              <ModalDialog />
 
-              <Button animated="fade" className="icon-button" onClick={() => editCategory(id)}>
-                <Button.Content visible>
-                  <Icon name="edit"/>
-                </Button.Content>
-                <Button.Content hidden>
-                  edit
-                </Button.Content>
-              </Button>
             </div>
 
             <div className="delete-and-add-category">
