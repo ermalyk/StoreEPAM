@@ -1,10 +1,11 @@
 import {
     SET_CATEGORY_LIST,
     ADD_CATEGORY,
+    EDIT_CATEGORY,
+    ADD_SUB_CATEGORY,
     TOGGLE_CATEGORY,
     SHOW_CATEGORY_ITEMS,
-    ADD_NEW_ITEM,
-    EDIT_CATEGORY
+    ADD_NEW_ITEM
 } from './actions';
 
 let deepMapActiveCategory = (list, id, level, currentLevel) => {
@@ -25,9 +26,35 @@ let deepMapGetItems = (categories, id) => {
             return category.items;
         }
         if (category.categories.length > 0) {
-            return deepMapActiveCategory(category.categories, id);
+            return deepMapGetItems(category.categories, id);
         }
         return [];
+    })
+};
+
+let deepMapPutNewSubCategory = (categories, id, newSubCategory) => {
+    return categories.map((category) => {
+        if (category.id && category.id === id) {
+            let newCategories = category.categories.push(newSubCategory);
+            return {...category, categories: newCategories  };
+        }
+        if (category.categories.length > 0) {
+            return deepMapPutNewSubCategory(category.categories, id, newSubCategory);
+        }
+        return [];
+    })
+};
+
+let deepMapEditCategory = (list, id, categoryName) => {
+    return list.map((category) => {
+        if (category.id && category.id === id) {
+          console.log(categoryName);
+            return {...category, title: categoryName }
+        }
+        if (category.categories.length > 0) {
+            return {...category, categories: deepMapEditCategory(category.categories, id, categoryName) };
+        }
+        return category;
     })
 };
 
@@ -56,10 +83,6 @@ export const reducer = (state = { list: [] }, action) => {
                 list: action.categories
             }
         case ADD_CATEGORY:
-            let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-                let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-                return v.toString(16);
-            });
             let newCategory = {
                 "id": newId,
                 "pressed": true,
@@ -72,15 +95,41 @@ export const reducer = (state = { list: [] }, action) => {
             categories.push(newCategory);
             return {
                 ...state,
-                list: {...state.list, categories}
+                list: {...state.list, categories, pressedId: newId}
+            }
+        case ADD_SUB_CATEGORY:
+            console.log('add sub-category', action.newSubCategoryTitle);
+
+            let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+                let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                return v.toString(16);
+            });
+
+            let newSubCategory = {
+                "id": newId,
+                "pressed": true,
+                "title": action.newSubCategoryTitle,
+                "active": false,
+                "categories": [],
+                "items": []
+            };
+            // let categories = deepMapPutNewSubCategory(categories, id, subCategoryName);
+
+            // let categoriesDuplicate = [...state.list.categories];
+
+            return {
+                ...state,
+                list: {...state.list, categories: deepMapPutNewSubCategory(state.list.categories, action.categoryId, newSubCategory)}
             }
         case EDIT_CATEGORY:
             console.log('edit category', action.id);
-            break;
-            // return {
-            //     ...state,
-            //     list: {...state.list, categories}
-            // }
+
+            // let categoriesDuplicate = [...state.list.categories];
+
+            return {
+                ...state,
+                list: {...state.list, categories: deepMapEditCategory(state.list.categories, action.id, action.newCategoryTitle)}
+            }
         case ADD_NEW_ITEM:
 
             return {

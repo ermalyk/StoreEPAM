@@ -93,7 +93,7 @@ class Category extends React.Component {
         </div>
         <div className={active ? '' : 'hideCategory'}>
           {categories
-            .map(category => (<div ><Category
+            .map(category => (<Category
               key={category.id}
               id={category.id}
               active={category.active ? true : false}
@@ -104,7 +104,7 @@ class Category extends React.Component {
               onCategoryClick={onCategoryClick}
               showCategoryItems={showCategoryItems}
               editCategory={editCategory}
-            /></div>))}
+            />))}
           </div>
       </Item>
     );

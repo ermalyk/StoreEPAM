@@ -47,7 +47,7 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button color='green' onClick={() => editCategory(id)}>
+            <Button color='green' onClick={() => editCategory(id, this.state.name)}>
               <Icon name='checkmark' /> Yes
             </Button>
           </Modal.Actions>
