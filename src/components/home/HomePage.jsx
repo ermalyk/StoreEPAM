@@ -83,7 +83,6 @@ class HomePage extends React.Component {
 
           <div>
             <Progress percent={60} autoSuccess />
-            <Button onClick={toggle}>Toggle Complete</Button>
           </div>
           <div className="add-text-fields">
             <div>

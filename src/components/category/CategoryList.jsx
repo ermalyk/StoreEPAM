@@ -23,9 +23,7 @@ class CategoryList extends React.Component {
       <div>
         <Item.Group divided>
           {
-            (categories || []).map(category => {
-              const categories = category.categories || [];
-              return (
+            (categories || []).map(category => (
                   <Category
                     key={category.id}
                     active={category.active? true: false}
@@ -34,14 +32,14 @@ class CategoryList extends React.Component {
                     checked={false}
                     pressedId={pressedId}
                     title={category.title}
-                    categories={categories}
+                    categories={category.categories || []}
                     onCategoryClick={onCategoryClick}
                     showCategoryItems={showCategoryItems}
                     editCategory={editCategory}
                     addSubCategory={addSubCategory}
                   />
-              );
-            })
+              )
+            )
           }
         </Item.Group>
       </div>

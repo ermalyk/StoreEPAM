@@ -6,7 +6,7 @@ import { reducer as itemListReduser } from './components/toDoItem/reducer';
 
 export default combineReducers({
     categories: categoryReducer,
-    itemList: itemListReduser
+    // itemList: itemListReduser
  //   editItem: editItem
         // itemReducer
 });
