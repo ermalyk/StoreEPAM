@@ -8,7 +8,7 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-import { setCategoryList, toggleCategory, showCategoryItems, addCategory, editCategory } from '../category/actions.js';
+import { setCategoryList, toggleCategory, showCategoryItems, addCategory, editCategory, addSubCategory } from '../category/actions.js';
 // import { addCategory } from './actions.js';
 // import {
 //     ADD_CATEGORY
@@ -52,7 +52,7 @@ class HomePage extends React.Component {
 
     render() {
       const { categories, pressedId, activeItems } = this.props.categories;
-      const { addCategory, editCategory } = this.props;
+      const { addCategory, editCategory, addSubCategory } = this.props;
 
       function getItemsForSelectedCategory(categories, id) {
             let items = categories.find((category) => {
@@ -112,7 +112,8 @@ class HomePage extends React.Component {
                 categories={categories}
                 onCategoryClick={this.props.toggleCategory}
                 showCategoryItems={this.props.showCategoryItems}
-                editCategory={editCategory}/>
+                editCategory={editCategory}
+                addSubCategory={addSubCategory}/>
             </div>
             <div className="item-section">
               <ToDoItemList className="item-list" items={activeItems} />
@@ -140,7 +141,8 @@ const mapDispatchToProps = (dispatch) => {
     setCategoryList: bindActionCreators(setCategoryList, dispatch),
     addCategory: bindActionCreators(addCategory, dispatch),
     editCategory: bindActionCreators(editCategory, dispatch),
-    showCategoryItems: bindActionCreators(showCategoryItems, dispatch)
+    showCategoryItems: bindActionCreators(showCategoryItems, dispatch),
+    addSubCategory:  bindActionCreators(addSubCategory, dispatch)
   };
 }
 

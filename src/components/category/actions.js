@@ -16,7 +16,7 @@ export const addCategory = (newCategoryTitle) => ({
     newCategoryTitle
 })
 
-export const addSubCategory = (newSubCategoryTitle, categoryId) => ({
+export const addSubCategory = (categoryId, newSubCategoryTitle) => ({
     type: ADD_SUB_CATEGORY,
     categoryId,
     newSubCategoryTitle

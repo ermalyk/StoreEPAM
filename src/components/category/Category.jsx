@@ -11,17 +11,12 @@ class Category extends React.Component {
   constructor(props) {
     super(props);
     // this.onClickCategory = this.onClickCategory.bind(this);
-    this.editCategory = this.editCategory.bind(this);
   }
 
   // onClickCategory(id, level) {
   //   // debugger;
   //   toggleCategory(id, level);
   // }
-
-  editCategory() {
-
-  }
 
   render() {
     const {
@@ -33,7 +28,8 @@ class Category extends React.Component {
       active,
       pressedId,
       showCategoryItems,
-      editCategory
+      editCategory,
+      addSubCategory
     } = this.props;
 
     const width = (100 - this.props.level * 10) + '%';
@@ -65,7 +61,8 @@ class Category extends React.Component {
                 id={id}
                 title={title}
                 typeName="Category "
-                editCategory={editCategory}
+                buttonTitle="Edit"
+                callback={editCategory}
               />
 
             </div>
@@ -80,14 +77,13 @@ class Category extends React.Component {
                 </Button.Content>
               </Button>
 
-              <Button animated="fade" className="icon-button">
-                <Button.Content visible>
-                  <Icon name="add square"/>
-                </Button.Content>
-                <Button.Content hidden>
-                  Add
-                </Button.Content>
-              </Button>
+              <ModalDialog
+                id={id}
+                title={'Add sub-category to ' + title}
+                typeName="Category "
+                buttonTitle="Add"
+                callback={addSubCategory}
+              />
             </div>
           </div>
         </div>
@@ -104,6 +100,7 @@ class Category extends React.Component {
               onCategoryClick={onCategoryClick}
               showCategoryItems={showCategoryItems}
               editCategory={editCategory}
+              addSubCategory={addSubCategory}
             />))}
           </div>
       </Item>
@@ -120,7 +117,8 @@ Category.PropTypes = {
   categories: PropTypes.array.isRequired,
   onCategoryClick: PropTypes.func.isRequired,
   showCategoryItems: PropTypes.func.isRequired,
-  editCategory: PropTypes.func.isRequired
+  editCategory: PropTypes.func.isRequired,
+  addSubCategory: PropTypes.func.isRequired
 };
 
 // const mapDispatchToProps = (dispatch) => {

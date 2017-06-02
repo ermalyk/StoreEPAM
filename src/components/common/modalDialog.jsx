@@ -10,8 +10,8 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
       this.state = {
         name: ''
       };
-    }
 
+    }
 
     render() {
 
@@ -19,7 +19,8 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
         id,
         title,
         typeName,
-        editCategory
+        buttonTitle,
+        callback
       } = this.props;
 
     //class ModalDialog extends React.Component {
@@ -31,7 +32,7 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
                 <Icon name="edit"/>
               </Button.Content>
               <Button.Content hidden>
-                edit
+                {buttonTitle}
               </Button.Content>
             </Button>
             }
@@ -47,7 +48,7 @@ import { Button, Header, Icon, Modal } from 'semantic-ui-react';
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button color='green' onClick={() => editCategory(id, this.state.name)}>
+            <Button color='green' onClick={() => callback(id, this.state.name)}>
               <Icon name='checkmark' /> Yes
             </Button>
           </Modal.Actions>
@@ -60,7 +61,7 @@ ModalDialog.PropTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   typeName: PropTypes.string.isRequired,
-  editCategory: PropTypes.func.isRequired
+  callback: PropTypes.func.isRequired
 };
 
 export default ModalDialog

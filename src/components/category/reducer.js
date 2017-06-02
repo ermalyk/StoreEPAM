@@ -35,13 +35,14 @@ let deepMapGetItems = (categories, id) => {
 let deepMapPutNewSubCategory = (categories, id, newSubCategory) => {
     return categories.map((category) => {
         if (category.id && category.id === id) {
-            let newCategories = category.categories.push(newSubCategory);
-            return {...category, categories: newCategories  };
+            let newCategories = [...category.categories];
+            newCategories.push(newSubCategory);
+            return { ...category, categories: newCategories };
         }
         if (category.categories.length > 0) {
-            return deepMapPutNewSubCategory(category.categories, id, newSubCategory);
+            return { ...category, categories: deepMapPutNewSubCategory(category.categories, id, newSubCategory)};
         }
-        return [];
+        return category;
     })
 };
 
@@ -98,13 +99,10 @@ export const reducer = (state = { list: [] }, action) => {
                 list: {...state.list, categories, pressedId: newId}
             }
         case ADD_SUB_CATEGORY:
-            console.log('add sub-category', action.newSubCategoryTitle);
-
             let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
                 let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
                 return v.toString(16);
             });
-
             let newSubCategory = {
                 "id": newId,
                 "pressed": true,
@@ -113,9 +111,6 @@ export const reducer = (state = { list: [] }, action) => {
                 "categories": [],
                 "items": []
             };
-            // let categories = deepMapPutNewSubCategory(categories, id, subCategoryName);
-
-            // let categoriesDuplicate = [...state.list.categories];
 
             return {
                 ...state,
