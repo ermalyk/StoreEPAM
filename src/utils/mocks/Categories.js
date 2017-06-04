@@ -8,11 +8,13 @@ const Categories = {
             "active": false,
             "categories": [],
             "items": [{
+                    "id": '1',
                     "checked": false,
                     "title": 'To-Do Item #1',
-                    "categories": []
+                    "categories": [],
                 },
                 {
+                    "id": '2',
                     "checked": false,
                     "title": 'To-Do Item #2',
                     "categories": []
@@ -30,11 +32,13 @@ const Categories = {
                     "title": 'Category 2 1',
                     "categories": [],
                     "items": [{
+                            "id": '3',
                             "checked": false,
                             "title": 'To-Do Item #2 1',
                             "categories": []
                         },
                         {
+                            "id": '4',
                             "checked": false,
                             "title": 'To-Do Item #2 2',
                             "categories": []
@@ -82,11 +86,13 @@ const Categories = {
                             "active": false,
                             "categories": [],
                             "items": [{
+                                    "id": '5',
                                     "checked": false,
                                     "title": 'To-Do Item #3 2 1',
                                     "categories": []
                                 },
                                 {
+                                    "id": '6',
                                     "checked": false,
                                     "title": 'To-Do Item #3 2 2',
                                     "categories": []

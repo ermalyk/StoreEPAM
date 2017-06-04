@@ -9,12 +9,14 @@ class ToDoItem extends React.Component {
   render() {
 
     const {
-      item
+      item,
+      changeStateOfCheckedItem,
+      pressedId
     } = this.props;
     //{item.title}
     return (
       <Item className="to-do-item" >
-        <Checkbox />
+        <Checkbox checked={item.checked} onChange={() => changeStateOfCheckedItem(pressedId, item)}/>
         <label>{item.title || 'No Items'}</label>
         <Button animated="fade" className="icon-button">
           <Button.Content visible>
@@ -30,7 +32,9 @@ class ToDoItem extends React.Component {
 }
 
 ToDoItem.PropTypes = {
-  // item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
+  changeStateOfCheckedItem: PropTypes.func.isRequired,
+  pressedId: PropTypes.string.isRequired
 };
 
 export default ToDoItem;

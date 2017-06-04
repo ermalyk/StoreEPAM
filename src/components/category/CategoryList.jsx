@@ -16,7 +16,8 @@ class CategoryList extends React.Component {
       showCategoryItems,
       pressedId,
       editCategory,
-      addSubCategory
+      addSubCategory,
+      deleteCategory
     } = this.props;
     // console.log('CategoryList categories', categories);
     return (
@@ -37,6 +38,7 @@ class CategoryList extends React.Component {
                     showCategoryItems={showCategoryItems}
                     editCategory={editCategory}
                     addSubCategory={addSubCategory}
+                    deleteCategory={deleteCategory}
                   />
               )
             )
@@ -53,7 +55,8 @@ CategoryList.PropTypes = {
   onClickCategory: PropTypes.func.isRequired,
   showCategoryItems: PropTypes.func.isRequired,
   editCategory: PropTypes.func.isRequired,
-  addSubCategory: PropTypes.func.isRequired
+  addSubCategory: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired
 };
 
 export default CategoryList;

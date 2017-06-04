@@ -5,13 +5,15 @@ import {
     ADD_SUB_CATEGORY,
     TOGGLE_CATEGORY,
     SHOW_CATEGORY_ITEMS,
-    ADD_NEW_ITEM
+    ADD_NEW_ITEM,
+    DELETE_CATEGORY,
+    CHANGE_STATE_ITEM
 } from './actions';
 
-let deepMapActiveCategory = (list, id, level, currentLevel) => {
+const deepMapActiveCategory = (list, id, level, currentLevel) => {
     return list.map((category) => {
         if (category.id && category.id === id) {
-            return {...category, active: !category.active }
+            return {...category, active: !category.active };
         }
         if (category.categories.length > 0) {
             return {...category, categories: deepMapActiveCategory(category.categories, id, level, ++currentLevel) };
@@ -20,7 +22,7 @@ let deepMapActiveCategory = (list, id, level, currentLevel) => {
     })
 };
 
-let deepMapGetItems = (categories, id) => {
+const deepMapGetItems = (categories, id) => {
     return categories.map((category) => {
         if (category.id && category.id === id) {
             return category.items;
@@ -32,7 +34,7 @@ let deepMapGetItems = (categories, id) => {
     })
 };
 
-let deepMapPutNewSubCategory = (categories, id, newSubCategory) => {
+const deepMapPutNewSubCategory = (categories, id, newSubCategory) => {
     return categories.map((category) => {
         if (category.id && category.id === id) {
             let newCategories = [...category.categories];
@@ -46,7 +48,83 @@ let deepMapPutNewSubCategory = (categories, id, newSubCategory) => {
     })
 };
 
-let deepMapEditCategory = (list, id, categoryName) => {
+const deepMapDeleteCategory2 = (list, id, level, currentLevel) => {
+    return list.map((category) => {
+        if (category.id && category.id === id) {
+            return {...category, active: !category.active };
+        }
+        if (category.categories.length > 0) {
+            return {...category, categories: deepMapActiveCategory(category.categories, id, level, ++currentLevel) };
+        }
+        return category;
+    })
+};
+
+const deepMapDeleteCategory = (categories, id) => {
+    return categories.filter((category) => {
+        if(category.id && category.id === id) {
+            console.log('false!!!');
+            return false;
+        }
+        if (category.categories.length > 0) {
+            console.log('true!!!');
+            return deepMapDeleteCategory(category.categories, id);
+        }
+        console.log('true again!!!');
+        return true;
+    })
+};
+
+const deleteCategory = (categories, id, res) => {
+    for (let category in categories) {
+      if (categories[category].id && categories[category].id === id) {
+          categories.splice(category, 1);
+          return res;
+      }
+      if (categories[category].categories.length > 0) {
+          res = getItemsForSelectedCategory(categories[category].categories, id, res);
+          res = res.filter(function(n){ return n != undefined });
+      }
+    }
+    res = res.filter(function(n){ return n != undefined });
+    return res;
+}
+
+const deepMapItemChengeCheckbox = (listItems, id, item) => {
+    return listItems.map((category) => {
+        if (category.id && category.id === id ) {
+            let currentItems = {...category.items};
+            for(let currentItem of currentItems) {
+                if(currentItem.id === item.id) {
+                  currentItem.checked = !currentItem.checked;
+                }
+            }
+            console.log('currentItems = ', currentItems);
+            return {...category, items: currentItems };
+        }
+        if (category.categories.length > 0) {
+            return {...category, categories: deepMapActiveCategory(category.categories, id, level, ++currentLevel) };
+        }
+        return category;
+    })
+};
+
+const deepMapPutNewToDoItem = (categories, id, newItem) => {
+    return categories.map((category) => {
+        if (category.id && category.id === id) {
+            let addNewItems = [...category.items];
+            addNewItems.push(newItem);
+
+            return { ...category, items: addNewItems };
+        }
+        if (category.categories.length > 0) {
+            return { ...category, categories: deepMapPutNewSubCategory(category.categories, id, newItem)};
+        }
+        return category;
+    })
+};
+
+const deepMapEditCategory = (list, id, categoryName) => {
     return list.map((category) => {
         if (category.id && category.id === id) {
           console.log(categoryName);
@@ -58,6 +136,14 @@ let deepMapEditCategory = (list, id, categoryName) => {
         return category;
     })
 };
+
+const returnUID = () => {
+  let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+      return v.toString(16);
+  });
+  return newId;
+}
 
 const getItemsForSelectedCategory = (categories, id, res) => {
     for (let category of categories) {
@@ -84,8 +170,9 @@ export const reducer = (state = { list: [] }, action) => {
                 list: action.categories
             }
         case ADD_CATEGORY:
+            let newCategoryID = returnUID();
             let newCategory = {
-                "id": newId,
+                "id": newCategoryID,
                 "pressed": true,
                 "title": action.newCategoryTitle,
                 "active": false,
@@ -96,15 +183,11 @@ export const reducer = (state = { list: [] }, action) => {
             categories.push(newCategory);
             return {
                 ...state,
-                list: {...state.list, categories, pressedId: newId}
+                list: {...state.list, categories, pressedId: newCategoryID}
             }
         case ADD_SUB_CATEGORY:
-            let newId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-                let r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-                return v.toString(16);
-            });
             let newSubCategory = {
-                "id": newId,
+                "id": returnUID(),
                 "pressed": true,
                 "title": action.newSubCategoryTitle,
                 "active": false,
@@ -116,6 +199,17 @@ export const reducer = (state = { list: [] }, action) => {
                 ...state,
                 list: {...state.list, categories: deepMapPutNewSubCategory(state.list.categories, action.categoryId, newSubCategory)}
             }
+        case DELETE_CATEGORY:
+            console.log('delete category = ', state.list.categories, action.categoryId);
+            // let categoriesAfterDelete = [...state.list.categories];
+            // categoriesAfterDelete.push(newCategory);
+            let firstParent = [...state.list];
+            let hoho = deepMapDeleteCategory(state.list.categories, action.categoryId);
+            console.log('hoho = ', hoho);
+            return {
+                ...state,
+                list: {...state.list, categories: hoho}
+            }
         case EDIT_CATEGORY:
             console.log('edit category', action.id);
 
@@ -126,10 +220,17 @@ export const reducer = (state = { list: [] }, action) => {
                 list: {...state.list, categories: deepMapEditCategory(state.list.categories, action.id, action.newCategoryTitle)}
             }
         case ADD_NEW_ITEM:
-
+            let newItem = {
+                "id": returnUID(),
+                "checked": false,
+                "title": action.titleItem,
+                "categories": []
+            };
+            let newActiveItems = [...state.list.activeItems];
+            newActiveItems.push(newItem);
             return {
                 ...state,
-                list: {...state.list, categories}
+                list: {...state.list, categories: deepMapPutNewToDoItem(state.list.categories, action.categoryId, newItem), activeItems: newActiveItems}
             }
         case TOGGLE_CATEGORY:
             let a = deepMapActiveCategory(state.list.categories, action.id, action.level, 0);
@@ -155,6 +256,15 @@ export const reducer = (state = { list: [] }, action) => {
                 ...state,
                 list: listShow
             };
+        case CHANGE_STATE_ITEM:
+        console.log(`change State Of Checked Item = ${action.categoryId} ; ${action.item}`);
+        let aaa = deepMapItemChengeCheckbox(state.list.categories, action.categoryId, action.item);
+        console.log('aaa = ', aaa);
+        //
+        // return {
+        //   ...state.items, item
+        // }
+        break;
     }
     return state;
 }

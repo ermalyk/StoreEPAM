@@ -29,7 +29,8 @@ class Category extends React.Component {
       pressedId,
       showCategoryItems,
       editCategory,
-      addSubCategory
+      addSubCategory,
+      deleteCategory
     } = this.props;
 
     const width = (100 - this.props.level * 10) + '%';
@@ -68,7 +69,10 @@ class Category extends React.Component {
             </div>
 
             <div className="delete-and-add-category">
-              <Button animated="fade" className="icon-button">
+              <Button
+                animated="fade"
+                className="icon-button"
+                onClick={() => deleteCategory(id)}>
                 <Button.Content visible>
                   <Icon name="trash outline"/>
                 </Button.Content>
@@ -101,6 +105,7 @@ class Category extends React.Component {
               showCategoryItems={showCategoryItems}
               editCategory={editCategory}
               addSubCategory={addSubCategory}
+              deleteCategory={deleteCategory}
             />))}
           </div>
       </Item>
@@ -118,7 +123,8 @@ Category.PropTypes = {
   onCategoryClick: PropTypes.func.isRequired,
   showCategoryItems: PropTypes.func.isRequired,
   editCategory: PropTypes.func.isRequired,
-  addSubCategory: PropTypes.func.isRequired
+  addSubCategory: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired
 };
 
 // const mapDispatchToProps = (dispatch) => {

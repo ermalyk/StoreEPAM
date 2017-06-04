@@ -4,14 +4,18 @@ import { Item } from 'semantic-ui-react';
 
 class ToDoItemList extends React.Component {
   render() {
-    const {items} = this.props;
+    const {items, pressedId, changeStateOfCheckedItem} = this.props;
     return (
       <div>
         <Item.Group divided>
           {
             (items||[]).map((item, i) => {
               return (
-                <ToDoItem item={item} key={i} />
+                <ToDoItem
+                  item={item}
+                  key={i}
+                  changeStateOfCheckedItem={changeStateOfCheckedItem}
+                  pressedId={pressedId}/>
               );
             })
           }
@@ -21,20 +25,10 @@ class ToDoItemList extends React.Component {
   }
 }
 
-{/*<Item.Group divided>
-        {
-          categories.map((category, i) => {
-            return (
-              <ToDoItem key={i} />
-            );
-          })
-        }
-      </Item.Group>
 ToDoItemList.PropTypes = {
-  categories: PropTypes.object.isRequired
-};*/}
-ToDoItemList.PropTypes = {
-  items: PropTypes.object.isRequired
+  items: PropTypes.object.isRequired,
+  changeStateOfCheckedItem: PropTypes.func.isRequired,
+  pressedId: PropTypes.string.isRequired
 };
 
 export default ToDoItemList;

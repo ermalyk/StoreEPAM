@@ -8,7 +8,7 @@ import ToDoItemList from '../toDoItem/ToDoItemList.jsx';
 import Helper from '../../utils/helpers/GetCategories';
 import { Button, Progress } from 'semantic-ui-react';
 
-import { setCategoryList, toggleCategory, showCategoryItems, addCategory, editCategory, addSubCategory } from '../category/actions.js';
+import { setCategoryList, toggleCategory, showCategoryItems, addCategory, editCategory, addSubCategory, addToDoItem, deleteCategory, changeStateOfCheckedItem } from '../category/actions.js';
 // import { addCategory } from './actions.js';
 // import {
 //     ADD_CATEGORY
@@ -21,6 +21,7 @@ class HomePage extends React.Component {
         inputNewCategory: ''
       }
       this.updateNewCategoryInputValue = this.updateNewCategoryInputValue.bind(this);
+      this.updateNewToDoItemInputValue = this.updateNewToDoItemInputValue.bind(this);
     }
 
     componentDidMount() {
@@ -50,9 +51,19 @@ class HomePage extends React.Component {
       });
     }
 
+    updateNewToDoItemInputValue(evt) {
+      this.setState({
+        inputNewToDoItem: evt.target.value
+      });
+    }
+
+    changeStateOfCheckedItem() {
+
+    }
+
     render() {
       const { categories, pressedId, activeItems } = this.props.categories;
-      const { addCategory, editCategory, addSubCategory } = this.props;
+      const { toggleCategory, addCategory, editCategory, addSubCategory, addToDoItem, deleteCategory, changeStateOfCheckedItem } = this.props;
 
       function getItemsForSelectedCategory(categories, id) {
             let items = categories.find((category) => {
@@ -85,22 +96,29 @@ class HomePage extends React.Component {
             <Progress percent={60} autoSuccess />
           </div>
           <div className="add-text-fields">
+            <input
+              type="text"
+              value={this.state.inputNewCategory}
+              onChange={evt => this.updateNewCategoryInputValue(evt)} />
+            <Button
+              className="icon-button"
+              onClick={() => {addCategory(this.state.inputNewCategory)}}>
+              <Button.Content>
+                Add
+              </Button.Content>
+            </Button>
             <div>
               <input
                 type="text"
-                value={this.state.inputNewCategory}
-                onChange={evt => this.updateNewCategoryInputValue(evt)} />
+                value={this.state.inputNewToDoItem}
+                onChange={evt => this.updateNewToDoItemInputValue(evt)} />
               <Button
                 className="icon-button"
-                onClick={() => {addCategory(this.state.inputNewCategory)}}>
+                onClick={() => {addToDoItem(pressedId, this.state.inputNewToDoItem)}}>
                 <Button.Content>
                   Add
                 </Button.Content>
               </Button>
-            </div>
-            <div>
-              <input type="text" />
-              <button>Add</button>
             </div>
           </div>
           <div className="home-page">
@@ -109,13 +127,18 @@ class HomePage extends React.Component {
                 className="category-list"
                 pressedId={pressedId}
                 categories={categories}
-                onCategoryClick={this.props.toggleCategory}
+                onCategoryClick={toggleCategory}
+                deleteCategory={this.props.deleteCategory}
                 showCategoryItems={this.props.showCategoryItems}
                 editCategory={editCategory}
                 addSubCategory={addSubCategory}/>
             </div>
             <div className="item-section">
-              <ToDoItemList className="item-list" items={activeItems} />
+              <ToDoItemList
+                className="item-list"
+                items={activeItems}
+                changeStateOfCheckedItem={changeStateOfCheckedItem}
+                pressedId={pressedId}/>
             </div>
           </div>
         </div>
@@ -127,7 +150,15 @@ class HomePage extends React.Component {
 // <ToDoItemList className="item-list" categories={categories} onCategoryClick={this.props.toggleCategory} />
 
 HomePage.PropTypes = {
-  categories: PropTypes.array.isRequired
+  categories: PropTypes.array.isRequired,
+  pressedId: PropTypes.bool.isRequired,
+  activeItems: PropTypes.array.isRequired,
+  addCategory: PropTypes.func.isRequired,
+  editCategory: PropTypes.func.isRequired,
+  addSubCategory: PropTypes.func.isRequired,
+  addToDoItem: PropTypes.func.isRequired,
+  deleteCategory: PropTypes.func.isRequired,
+  changeStateOfCheckedItem: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -141,7 +172,10 @@ const mapDispatchToProps = (dispatch) => {
     addCategory: bindActionCreators(addCategory, dispatch),
     editCategory: bindActionCreators(editCategory, dispatch),
     showCategoryItems: bindActionCreators(showCategoryItems, dispatch),
-    addSubCategory:  bindActionCreators(addSubCategory, dispatch)
+    addSubCategory:  bindActionCreators(addSubCategory, dispatch),
+    addToDoItem: bindActionCreators(addToDoItem, dispatch),
+    deleteCategory: bindActionCreators(deleteCategory, dispatch),
+    changeStateOfCheckedItem: bindActionCreators(changeStateOfCheckedItem, dispatch)
   };
 }
 
